@@ -15,6 +15,8 @@ interface RemoteMethodCall {
 }
 ```
 
+It also uses [`coderitter-api`](https://github.com/c0deritter/coderitter-api) and [`coderitter-api-log`](https://github.com/c0deritter/mega-nice-log/tree/coderitter-api).
+
 ### Register remote methods
 
 ```typescript
@@ -29,7 +31,7 @@ api.methods['user.create'] = (parameter: any) => {
 
 let remoteMethodCall: RemoteMethodCall = {
   methodName: 'user.create',
-  parameter: new User('Ruben') // use mega-nice-json to transfer real real classes
+  parameter: new User('Ruben')
 }
 
 let result = await api.callMethod(remoteMethodCall)
@@ -37,40 +39,20 @@ let result = await api.callMethod(remoteMethodCall)
 result == 'success'
 ```
 
-### React to thrown exceptions inside the remotely called method
+### Reaction to thrown exceptions inside the remotely called method
 
-If the remotely called method throws an exception then a simple object containing an error property with an error message is returned by method `callMethod`.
+If the remotely called method throws an exception then the [`coderitter-api`](https://github.com/c0deritter/coderitter-api) class `Result` with a set remote error is returned.
 
 ```typescript
-{ error: `There was an error while executing remote method '${methodName}': ${e.message}` }
+Result.remoteError(`There was an error with your request. We just were informed that it happened and we will look into the issue. Please try again later.`)
 ```
 
-You can customize this behaviour by subclassing `Api`.
+### Reaction to not supported remote method calls
+
+If the remotely called method is not supported then the [`coderitter-api`](https://github.com/c0deritter/coderitter-api) class `Result` with a set remote error is returned.
 
 ```typescript
-class YourApi extends Api {
-  onMethodError(error: any, methodName: string, parameter: any): any {
-    return new YourError(error, methodName, parameter)
-  }
-}
-```
-
-### React to not supported remote method calls
-
-If the remotely called method is not supported then a simple object containing an error property with an error message is return by method `callMethod`.
-
-```typescript
-{ error: `Remote method '${methodName}' not supported.` }
-```
-
-You can customize this behaviour by subclassing `Api`.
-
-```typescript
-class YourApi extends Api {
-  onRemoteMethodNotSupported(methodName: string, parameter: any): any {
-    return new YourError(methodName, parameter)
-  }
-}
+Result.remoteError(`Remote method '${methodName}' not supported.`)
 ```
 
 ### Create a sophisticated remote method call handler with LocalMethodCall interface
