@@ -20,9 +20,11 @@ It also uses [`coderitter-api`](https://github.com/c0deritter/coderitter-api) an
 ### Register remote methods
 
 ```typescript
-let api = new Api
+import { RemoteMethodApi } from 'coderitter-api-remote-method-api'
 
-api.methods['user.create'] = (parameter: any) => {
+let api = new RemoteMethodApi
+
+api.methods['user.create'] = async (parameter: any) => {
   // create the user and return anything that suits your architecture
   return {
     status: 'success'
