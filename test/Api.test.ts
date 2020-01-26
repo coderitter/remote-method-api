@@ -1,8 +1,9 @@
-import 'mocha'
 import { expect } from 'chai'
+import { Result } from 'coderitter-api'
+import 'mocha'
+import { RemoteMethodCall } from 'remote-method-call'
 import Api from '../src/Api'
 import LocalMethodCall from '../src/LocalMethodCall'
-import { RemoteMethodCall } from 'remote-method-call'
 
 describe('Api', function() {
   describe('callMethod', function() {
@@ -57,9 +58,10 @@ describe('Api', function() {
         }  
       }
 
-      let result: any = await api.callMethod(remoteMethodCall)
+      let result: Result<any> = await api.callMethod(remoteMethodCall)
 
-      expect(result.error).to.be.a('string')
+      expect(result).to.be.instanceOf(Result)
+      expect(result.isRemoteError()).to.be.true
     })
 
     it('should return an error if there was an exception thrown by the called method', async function() {
@@ -76,9 +78,10 @@ describe('Api', function() {
         }  
       }
 
-      let result: any = await api.callMethod(remoteMethodCall)
+      let result: Result<any> = await api.callMethod(remoteMethodCall)
 
-      expect(result.error).to.be.a('string')
+      expect(result).to.be.instanceOf(Result)
+      expect(result.isRemoteError()).to.be.true
     })
   })
 })
