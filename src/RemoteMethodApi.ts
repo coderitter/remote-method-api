@@ -5,7 +5,7 @@ import LocalMethodCall from './LocalMethodCall'
  * A remote method call API. It is a simple mapping from a method name to
  * an endpoint which calls the method.
  */
-export default class Api {
+export default class RemoteMethodApi {
 
   methods: {[methodName: string]: LocalMethodCall|((parameter: any) => Promise<any>)} = {}
 

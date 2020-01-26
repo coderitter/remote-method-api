@@ -1,13 +1,13 @@
 import 'mocha'
 import { expect } from 'chai'
-import Api from '../src/Api'
+import RemoteMethodApi from '../src/RemoteMethodApi'
 import LocalMethodCall from '../src/LocalMethodCall'
 import { RemoteMethodCall } from 'remote-method-call'
 
 describe('Api', function() {
   describe('callMethod', function() {
     it('should call the method given directly by a function', async function() {
-      let api = new Api
+      let api = new RemoteMethodApi
 
       api.methods['a'] = async (parameter: any): Promise<any> => {
         return parameter.p1
@@ -26,7 +26,7 @@ describe('Api', function() {
     })
 
     it('should call the method given as object with interface LocalMethodCall', async function() {
-      let api = new Api
+      let api = new RemoteMethodApi
       let localMethodCall: LocalMethodCall = {
         callMethod: async (parameter: any): Promise<any> => {
           return parameter.p1
@@ -48,7 +48,7 @@ describe('Api', function() {
     })
 
     it('should return a remote method not supported error', async function() {
-      let api = new Api
+      let api = new RemoteMethodApi
 
       let remoteMethodCall: RemoteMethodCall = {
         methodName: 'a',
@@ -63,7 +63,7 @@ describe('Api', function() {
     })
 
     it('should return an error if there was an exception thrown by the called method', async function() {
-      let api = new Api
+      let api = new RemoteMethodApi
 
       api.methods['a'] = async (parameter: any): Promise<any> => {
         throw new Error('TestError')

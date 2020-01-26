@@ -1,2 +1,3 @@
-export { default as Api } from './Api'
 export { default as LocalMethodCall } from './LocalMethodCall'
+export { default as RemoteMethodApi } from './RemoteMethodApi'
+

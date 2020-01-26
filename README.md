@@ -18,9 +18,11 @@ interface RemoteMethodCall {
 ### Register remote methods
 
 ```typescript
-let api = new Api
+import { RemoteMethodApi } from 'remote-method-api'
 
-api.methods['user.create'] = (parameter: any) => {
+let api = new RemoteMethodApi
+
+api.methods['user.create'] = async (parameter: any) => {
   // create the user and return anything that suits your architecture
   return {
     status: 'success'
@@ -45,10 +47,10 @@ If the remotely called method throws an exception then a simple object containin
 { error: `There was an error while executing remote method '${methodName}': ${e.message}` }
 ```
 
-You can customize this behaviour by subclassing `Api`.
+You can customize this behaviour by subclassing `RemoteMethodApi`.
 
 ```typescript
-class YourApi extends Api {
+class YourApi extends RemoteMethodApi {
   onMethodError(error: any, methodName: string, parameter: any): any {
     return new YourError(error, methodName, parameter)
   }
@@ -63,10 +65,10 @@ If the remotely called method is not supported then a simple object containing a
 { error: `Remote method '${methodName}' not supported.` }
 ```
 
-You can customize this behaviour by subclassing `Api`.
+You can customize this behaviour by subclassing `RemoteMethodApi`.
 
 ```typescript
-class YourApi extends Api {
+class YourApi extends RemoteMethodApi {
   onRemoteMethodNotSupported(methodName: string, parameter: any): any {
     return new YourError(methodName, parameter)
   }
