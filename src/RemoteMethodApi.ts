@@ -1,6 +1,5 @@
-import { Result } from 'coderitter-api'
 import Log from 'coderitter-api-log'
-import { RemoteMethodCall } from 'remote-method-call'
+import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
 import LocalMethodCall from './LocalMethodCall'
 
 let log = new Log('Api.ts')

@@ -1,7 +1,6 @@
 import { expect } from 'chai'
-import { Result } from 'coderitter-api'
+import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
 import 'mocha'
-import { RemoteMethodCall } from 'remote-method-call'
 import LocalMethodCall from '../src/LocalMethodCall'
 import RemoteMethodApi from '../src/RemoteMethodApi'
 
