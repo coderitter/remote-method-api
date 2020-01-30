@@ -8,8 +8,8 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "coderitter-api-log": "^1.3.3",
-    "coderitter-api-remote-method-call": "^1.0.0"
+    "coderitter-api-remote-method-call": "^1.0.0",
+    "mega-nice-log": "^2.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.7",
