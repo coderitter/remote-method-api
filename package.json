@@ -1,6 +1,6 @@
 {
   "name": "coderitter-api-remote-method-api",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "coderitter-api-remote-method-call": "^1.0.1",
-    "mega-nice-log": "^2.0.1"
+    "mega-nice-log": "^2.0.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.8",
