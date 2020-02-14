@@ -1,3 +1,5 @@
+import { RemoteMethodCall } from "remote-method-call";
+
 /**
  * The simple interface of a remote method call.
  */
@@ -6,7 +8,7 @@ export default interface LocalMethodCall {
   /**
    * Call the method.
    * 
-   * @param parameter The parameter for the method.
+   * @param remoteMethodCall The whole remote method call containing the parameters for the method and potentially more
    */
-  callMethod(parameter: any): Promise<any>
+  callMethod(remoteMethodCall: RemoteMethodCall): Promise<any>
 }

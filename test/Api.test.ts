@@ -9,8 +9,8 @@ describe('Api', function() {
     it('should call the method given directly by a function', async function() {
       let api = new RemoteMethodApi
 
-      api.methods['a'] = async (parameter: any): Promise<any> => {
-        return parameter.p1
+      api.methods['a'] = async (remoteMethodCall: RemoteMethodCall): Promise<any> => {
+        return remoteMethodCall.parameter.p1
       }
 
       let remoteMethodCall: RemoteMethodCall = {
@@ -28,8 +28,8 @@ describe('Api', function() {
     it('should call the method given as object with interface LocalMethodCall', async function() {
       let api = new RemoteMethodApi
       let localMethodCall: LocalMethodCall = {
-        callMethod: async (parameter: any): Promise<any> => {
-          return parameter.p1
+        callMethod: async (remoteMethodCall: RemoteMethodCall): Promise<any> => {
+          return remoteMethodCall.parameter.p1
         }
       }
 
