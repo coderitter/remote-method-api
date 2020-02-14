@@ -10,7 +10,7 @@ let log = new Log('Api.ts')
  */
 export default class RemoteMethodApi {
 
-  methods: {[methodName: string]: LocalMethodCall|((parameter: any) => Promise<any>)} = {}
+  methods: {[methodName: string]: LocalMethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<any>)} = {}
 
   /**
    * Get all the message id that can be handled 
@@ -29,7 +29,6 @@ export default class RemoteMethodApi {
     l.debug('remoteMethodCall =', remoteMethodCall)
 
     let methodName = remoteMethodCall.methodName
-    let parameter = remoteMethodCall.parameter
 
     if (methodName != undefined && methodName in this.methods) {
       let methodCall = this.methods[methodName]
@@ -37,13 +36,13 @@ export default class RemoteMethodApi {
       try {
         if (typeof methodCall === 'function') {
           l.debug('Remote method call handler is a function')
-          let result = await methodCall(parameter)
+          let result = await methodCall(remoteMethodCall)
           l.debug('result =', result)
           return result
         }
         else if (typeof methodCall.callMethod === 'function') {
           l.debug('Remote method call handler implements interface LocalMethodCall')
-          let result = await methodCall.callMethod(parameter)
+          let result = await methodCall.callMethod(remoteMethodCall)
           l.debug('result =', result)
           return result
         }
@@ -53,20 +52,20 @@ export default class RemoteMethodApi {
       }
       catch (e) {
         l.error('There was an error executing the called remote method', e)
-        return this.onMethodError(e, methodName, parameter)
+        return this.onMethodError(e, remoteMethodCall)
       }
     }
     else {
       l.warn(`Remote method '${methodName}' not supported.`, this.methodNames)
-      return this.onRemoteMethodNotSupported(methodName, parameter)
+      return this.onRemoteMethodNotSupported(remoteMethodCall)
     }
   }
 
-  onMethodError(e: any, methodName: string, parameter: any): any {
+  onMethodError(e: any, remoteMethodCall: RemoteMethodCall): any {
     return Result.remoteError(`There was an error with your request. We just were informed that it happened and we will look into the issue. Please try again later.`)
   }
 
-  onRemoteMethodNotSupported(methodName: string, parameter: any): any {
-    return Result.remoteError(`Remote method '${methodName}' not supported.`)
+  onRemoteMethodNotSupported(remoteMethodCall: RemoteMethodCall): any {
+    return Result.remoteError(`Remote method '${remoteMethodCall.methodName}' not supported.`)
   }
 }
