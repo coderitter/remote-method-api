@@ -2,7 +2,7 @@ import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
 import Log from 'mega-nice-log'
 import LocalMethodCall from './LocalMethodCall'
 
-let log = new Log('Api.ts')
+let log = new Log('RemoteMethodApi.ts')
 
 /**
  * A remote method call API. It is a simple mapping from a method name to
@@ -10,7 +10,7 @@ let log = new Log('Api.ts')
  */
 export default class RemoteMethodApi {
 
-  methods: {[methodName: string]: LocalMethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<any>)} = {}
+  methods: {[methodName: string]: LocalMethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<Result<any>>)} = {}
 
   /**
    * Get all the message id that can be handled 
