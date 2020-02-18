@@ -8,7 +8,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "coderitter-api-remote-method-call": "^2.1.0",
+    "coderitter-api-remote-method-call": "^2.1.1",
     "mega-nice-log": "^2.0.6"
   },
   "devDependencies": {
