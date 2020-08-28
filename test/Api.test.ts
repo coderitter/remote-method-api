@@ -57,7 +57,7 @@ describe('Api', function() {
         }  
       }
 
-      let result: Result<any> = await api.callMethod(remoteMethodCall)
+      let result: Result = await api.callMethod(remoteMethodCall)
 
       expect(result).to.be.instanceOf(Result)
       expect(result.isRemoteError()).to.be.true
@@ -77,7 +77,7 @@ describe('Api', function() {
         }  
       }
 
-      let result: Result<any> = await api.callMethod(remoteMethodCall)
+      let result: Result = await api.callMethod(remoteMethodCall)
 
       expect(result).to.be.instanceOf(Result)
       expect(result.isRemoteError()).to.be.true

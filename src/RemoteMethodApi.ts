@@ -10,7 +10,7 @@ let log = new Log('RemoteMethodApi.ts')
  */
 export default class RemoteMethodApi {
 
-  methods: {[methodName: string]: LocalMethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<Result<any>>)} = {}
+  methods: {[methodName: string]: LocalMethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<Result>)} = {}
 
   /**
    * Get all the message id that can be handled 
