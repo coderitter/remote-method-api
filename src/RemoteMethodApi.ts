@@ -25,7 +25,7 @@ export default class RemoteMethodApi {
    * @param remoteMethodCall May be on object of type RemoteMethodCall or a JSON string containing an object matching the type RemoteMethodCall
    */
   async callMethod(remoteMethodCall: RemoteMethodCall): Promise<any> {
-    let l = log.fn('callMethod')
+    let l = log.mt('callMethod')
     l.debug('remoteMethodCall =', remoteMethodCall)
 
     let methodName = remoteMethodCall.methodName

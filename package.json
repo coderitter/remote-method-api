@@ -1,6 +1,6 @@
 {
   "name": "coderitter-api-remote-method-api",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "coderitter-api-remote-method-call": "^3.0.0",
+    "coderitter-api-remote-method-call": "^3.0.1",
     "mega-nice-log": "^2.0.6"
   },
   "devDependencies": {
@@ -20,7 +20,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "test": "mocha -r ts-node/register \"test/**/*.test.ts\"",
     "build": "rm -rf lib && tsc"
   },
   "repository": {
