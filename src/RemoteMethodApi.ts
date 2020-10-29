@@ -26,7 +26,7 @@ export default class RemoteMethodApi {
    */
   async callMethod(remoteMethodCall: RemoteMethodCall): Promise<any> {
     let l = log.mt('callMethod')
-    l.debug('remoteMethodCall =', remoteMethodCall)
+    l.user('remoteMethodCall =', remoteMethodCall)
 
     let methodName = remoteMethodCall.methodName
 
@@ -35,15 +35,15 @@ export default class RemoteMethodApi {
 
       try {
         if (typeof methodCall === 'function') {
-          l.debug('Remote method call handler is a function')
+          l.user('Remote method call handler is a function')
           let result = await methodCall(remoteMethodCall)
-          l.debug('result =', result)
+          l.user('result =', result)
           return result
         }
         else if (typeof methodCall.callMethod === 'function') {
-          l.debug('Remote method call handler implements interface LocalMethodCall')
+          l.user('Remote method call handler implements interface LocalMethodCall')
           let result = await methodCall.callMethod(remoteMethodCall)
-          l.debug('result =', result)
+          l.user('result =', result)
           return result
         }
         else {
