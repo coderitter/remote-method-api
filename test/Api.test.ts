@@ -1,7 +1,7 @@
 import 'mocha'
 import { expect } from 'chai'
 import RemoteMethodApi from '../src/RemoteMethodApi'
-import LocalMethodCall from '../src/LocalMethodCall'
+import MethodCall from '../src/MethodCall'
 import { RemoteMethodCall } from 'remote-method-call'
 
 describe('Api', function() {
@@ -25,15 +25,15 @@ describe('Api', function() {
       expect(result).to.equal('p1')
     })
 
-    it('should call the method given as object with interface LocalMethodCall', async function() {
+    it('should call the method given as object with interface MethodCall', async function() {
       let api = new RemoteMethodApi
-      let localMethodCall: LocalMethodCall = {
+      let methodCall: MethodCall = {
         callMethod: async (remoteMethodCall: RemoteMethodCall): Promise<any> => {
           return remoteMethodCall.parameter.p1
         }
       }
 
-      api.methods['a'] = localMethodCall
+      api.methods['a'] = methodCall
 
       let remoteMethodCall: RemoteMethodCall = {
         methodName: 'a',

@@ -1,5 +1,5 @@
 import { RemoteMethodCall } from 'remote-method-call'
-import LocalMethodCall from './LocalMethodCall'
+import MethodCall from './MethodCall'
 
 /**
  * A remote method call API. It is a simple mapping from a method name to
@@ -7,7 +7,7 @@ import LocalMethodCall from './LocalMethodCall'
  */
 export default class RemoteMethodApi {
 
-  methods: {[methodName: string]: LocalMethodCall|((parameter: any) => Promise<any>)} = {}
+  methods: {[methodName: string]: MethodCall|((parameter: any) => Promise<any>)} = {}
 
   /**
    * Get all the message id that can be handled 

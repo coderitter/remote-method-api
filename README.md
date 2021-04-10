@@ -93,12 +93,14 @@ class YourApi extends RemoteMethodApi {
 }
 ```
 
-### Create a sophisticated remote method call handler with LocalMethodCall interface
+### Create a sophisticated remote method call handler with MethodCall interface
 
-Instead of assigning a remote method call directly as a function you can also assign any object satisfying the interface `LocalMethodCall`.
+Instead of assigning a remote method call directly as a function you can also assign any object satisfying the interface `MethodCall`.
 
 ```typescript
-export default interface LocalMethodCall {
+import { MethodCall } from 'remote-method-call'
+
+export default interface MethodCall {
   callMethod(parameter: any): Promise<any>
 }
 ```
