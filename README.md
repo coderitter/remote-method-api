@@ -1,5 +1,17 @@
 # Remote Method API
 
+A simple mapping from a remote method name to a the execution of code.
+
+The Remote Method API is an alternative to REST. Instead of limiting oneself to the built-in and inextensible HTTP methods POST, PUT, PATCH, DELETE and GET, with a Remote Method API you can use as many methods as you need and also name them as you like. The HTTP method names do not fit with the standard CRUD (create, read, update, delete) method names.
+
+## Related packages
+
+This package uses the interface `RemoteMethodCall` of package [remote-method-call](https://github.com/c0deritter/remote-method-call).
+
+To carry out a remote method call from inside the browser take a look at the package [postonly-request](https://github.com/c0deritter/postonly-request). It uses the HTTP usage style POSTonly which minimizes the locations were parameters are put into. Basically does it use the POST HTTP method only and every parameter is put inside the body of the HTTP message. It is an alternative to the REST usage style of HTTTP.
+
+There is also a [branch](https://github.com/c0deritter/remote-method-api/tree/coderitter-api) which is adjusted for the use with the Coderitter API architecture.
+
 ## Install
 
 `npm install remote-method-api`
@@ -22,16 +34,22 @@ import { RemoteMethodApi } from 'remote-method-api'
 
 let api = new RemoteMethodApi
 
-api.methods['user.create'] = async (parameter: any) => {
-  // create the user and return anything that suits your architecture
-  return {
-    status: 'success'
-  }
+// register remote methods
+api.methods = {
+  'User.create': async (parameter: any) => { return 'success' },
+  'User.read': async (parameter: any) => { return [] },
+  'User.update': async (parameter: any) => { return 'success' },
+  'User.delete': async (parameter: any) => { return 'success' }
 }
+```
 
+### Call a remote method
+
+```typescript
 let remoteMethodCall: RemoteMethodCall = {
-  methodName: 'user.create',
-  parameter: new User('Ruben') // use mega-nice-json to transfer real real classes
+  methodName: 'User.create',
+  // the parameter can be of any type
+  parameter: { name: 'Ruben' }
 }
 
 let result = await api.callMethod(remoteMethodCall)

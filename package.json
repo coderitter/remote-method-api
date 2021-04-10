@@ -1,6 +1,6 @@
 {
   "name": "remote-method-api",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,7 +19,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "test": "mocha -r ts-node/register \"test/**/*.test.ts\"",
     "build": "rm -rf lib && tsc"
   },
   "repository": {
