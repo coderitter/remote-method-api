@@ -1,15 +1,15 @@
 {
   "name": "coderitter-api-remote-method-api",
-  "version": "5.0.3",
-  "description": "",
+  "version": "6.0.0",
+  "description": "An adoption of the remote method api for the Coderitter API architecture",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
   "dependencies": {
-    "coderitter-api-remote-method-call": "^3.0.3",
-    "mega-nice-log": "^3.1.0"
+    "coderitter-api-remote-method-call": "^4.0.1",
+    "knight-log": "^1.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",

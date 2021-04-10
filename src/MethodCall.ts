@@ -3,7 +3,7 @@ import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
 /**
  * The simple interface of a remote method call.
  */
-export default interface LocalMethodCall {
+export default interface MethodCall {
 
   /**
    * Call the method.

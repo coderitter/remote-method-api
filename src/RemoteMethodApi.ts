@@ -1,8 +1,8 @@
 import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
-import Log from 'mega-nice-log'
-import LocalMethodCall from './LocalMethodCall'
+import Log from 'knight-log'
+import MethodCall from './MethodCall'
 
-let log = new Log('RemoteMethodApi.ts')
+let log = new Log('coderitter-api-remote-method-api/RemoteMethodApi.ts')
 
 /**
  * A remote method call API. It is a simple mapping from a method name to
@@ -10,7 +10,7 @@ let log = new Log('RemoteMethodApi.ts')
  */
 export default class RemoteMethodApi {
 
-  methods: {[methodName: string]: LocalMethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<Result>)} = {}
+  methods: {[methodName: string]: MethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<Result>)} = {}
 
   /**
    * Get all the message id that can be handled 
@@ -24,7 +24,7 @@ export default class RemoteMethodApi {
    * 
    * @param remoteMethodCall May be on object of type RemoteMethodCall or a JSON string containing an object matching the type RemoteMethodCall
    */
-  async callMethod(remoteMethodCall: RemoteMethodCall): Promise<any> {
+  async callMethod(remoteMethodCall: RemoteMethodCall): Promise<Result> {
     let l = log.mt('callMethod')
     l.user('remoteMethodCall =', remoteMethodCall)
 
@@ -40,14 +40,11 @@ export default class RemoteMethodApi {
           l.user('result =', result)
           return result
         }
-        else if (typeof methodCall.callMethod === 'function') {
+        else {
           l.user('Remote method call handler implements interface LocalMethodCall')
           let result = await methodCall.callMethod(remoteMethodCall)
           l.user('result =', result)
           return result
-        }
-        else {
-          l.error('Attached remote method call hanlder not supported')
         }
       }
       catch (e) {
@@ -56,16 +53,16 @@ export default class RemoteMethodApi {
       }
     }
     else {
-      l.warn(`Remote method '${methodName}' not supported.`, this.methodNames)
+      l.warn(`Remote method '${methodName}' not found.`, this.methodNames)
       return this.onRemoteMethodNotSupported(remoteMethodCall)
     }
   }
 
-  onMethodError(e: any, remoteMethodCall: RemoteMethodCall): any {
+  onMethodError(e: any, remoteMethodCall: RemoteMethodCall): Result {
     return Result.remoteError(`There was an error with your request. We just were informed that it happened and we will look into the issue. Please try again later.`)
   }
 
-  onRemoteMethodNotSupported(remoteMethodCall: RemoteMethodCall): any {
-    return Result.remoteError(`Remote method '${remoteMethodCall.methodName}' not supported.`)
+  onRemoteMethodNotSupported(remoteMethodCall: RemoteMethodCall): Result {
+    return Result.remoteError(`Remote method '${remoteMethodCall.methodName}' not found.`)
   }
 }
