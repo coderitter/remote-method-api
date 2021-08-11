@@ -1,5 +1,5 @@
 import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
-import Log from 'knight-log'
+import { Log } from 'knight-log'
 import MethodCall from './MethodCall'
 
 let log = new Log('coderitter-api-remote-method-api/RemoteMethodApi.ts')
@@ -26,7 +26,7 @@ export default class RemoteMethodApi {
    */
   async callMethod(remoteMethodCall: RemoteMethodCall): Promise<Result> {
     let l = log.mt('callMethod')
-    l.user('remoteMethodCall =', remoteMethodCall)
+    l.libUser('remoteMethodCall =', remoteMethodCall)
 
     let methodName = remoteMethodCall.methodName
 
@@ -35,15 +35,15 @@ export default class RemoteMethodApi {
 
       try {
         if (typeof methodCall === 'function') {
-          l.user('Remote method call handler is a function')
+          l.libUser('Remote method call handler is a function')
           let result = await methodCall(remoteMethodCall)
-          l.user('result =', result)
+          l.libUser('result =', result)
           return result
         }
         else {
-          l.user('Remote method call handler implements interface LocalMethodCall')
+          l.libUser('Remote method call handler implements interface LocalMethodCall')
           let result = await methodCall.callMethod(remoteMethodCall)
-          l.user('result =', result)
+          l.libUser('result =', result)
           return result
         }
       }

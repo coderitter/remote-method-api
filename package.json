@@ -1,6 +1,6 @@
 {
   "name": "coderitter-api-remote-method-api",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "An adoption of the remote method api for the Coderitter API architecture",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "coderitter-api-remote-method-call": "^4.0.1",
-    "knight-log": "^1.0.0"
+    "knight-log": "^1.0.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
