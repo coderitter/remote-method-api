@@ -1,23 +1,12 @@
 {
   "name": "remote-method-api",
-  "version": "4.0.0",
-  "description": "",
+  "version": "5.0.0",
+  "description": "A simple mapping from a remote method name to execution of code",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
-  "dependencies": {
-    "remote-method-call": "^1.0.0"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.2.7",
-    "@types/mocha": "^5.2.7",
-    "chai": "^4.2.0",
-    "mocha": "^6.2.2",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
-  },
   "scripts": {
     "test": "mocha -r ts-node/register \"test/**/*.test.ts\"",
     "build": "rm -rf lib && tsc"
@@ -33,5 +22,16 @@
   "bugs": {
     "url": "https://github.com/c0deritter/remote-method-api/issues"
   },
-  "homepage": "https://github.com/c0deritter/remote-method-api#readme"
+  "homepage": "https://github.com/c0deritter/remote-method-api#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "remote-method-call": "^2.0.0"
+  }
 }

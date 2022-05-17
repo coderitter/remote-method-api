@@ -1,6 +1,6 @@
 # Remote Method API
 
-A simple mapping from a remote method name to a the execution of code.
+A simple mapping from a remote method name to execution of code.
 
 The Remote Method API is an alternative to REST. Instead of limiting oneself to the built-in and inextensible HTTP methods POST, PUT, PATCH, DELETE and GET, with a Remote Method API you can use as many methods as you need and also name them as you like. The HTTP method names do not fit with the standard CRUD (create, read, update, delete) method names.
 
@@ -22,7 +22,7 @@ This package works in conjunction with [`remote-method-call`](https://github.com
 
 ```typescript
 interface RemoteMethodCall {
-  methodName: string
+  method: string
   parameter?: any
 }
 ```
@@ -47,7 +47,7 @@ api.methods = {
 
 ```typescript
 let remoteMethodCall: RemoteMethodCall = {
-  methodName: 'User.create',
+  method: 'User.create',
   // the parameter can be of any type
   parameter: { name: 'Ruben' }
 }
@@ -62,15 +62,15 @@ result == 'success'
 If the remotely called method throws an exception then a simple object containing an error property with an error message is returned by method `callMethod`.
 
 ```typescript
-{ error: `There was an error while executing remote method '${methodName}': ${e.message}` }
+{ error: `There was an error while executing remote method '${method}': ${e.message}` }
 ```
 
 You can customize this behaviour by subclassing `RemoteMethodApi`.
 
 ```typescript
 class YourApi extends RemoteMethodApi {
-  onMethodError(error: any, methodName: string, parameter: any): any {
-    return new YourError(error, methodName, parameter)
+  onMethodError(error: any, method: string, parameter: any): any {
+    return new YourError(error, method, parameter)
   }
 }
 ```
@@ -80,15 +80,15 @@ class YourApi extends RemoteMethodApi {
 If the remotely called method is not supported then a simple object containing an error property with an error message is return by method `callMethod`.
 
 ```typescript
-{ error: `Remote method '${methodName}' not supported.` }
+{ error: `Remote method '${method}' not supported.` }
 ```
 
 You can customize this behaviour by subclassing `RemoteMethodApi`.
 
 ```typescript
 class YourApi extends RemoteMethodApi {
-  onRemoteMethodNotSupported(methodName: string, parameter: any): any {
-    return new YourError(methodName, parameter)
+  onRemoteMethodNotSupported(method: string, parameter: any): any {
+    return new YourError(method, parameter)
   }
 }
 ```

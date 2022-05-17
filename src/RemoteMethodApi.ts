@@ -22,10 +22,10 @@ export default class RemoteMethodApi {
    * @param remoteMethodCall May be on object of type RemoteMethodCall or a JSON string containing an object matching the type RemoteMethodCall
    */
   async callMethod(remoteMethodCall: RemoteMethodCall): Promise<any> {
-    let methodName = remoteMethodCall.methodName
+    let method = remoteMethodCall.method
 
-    if (methodName != undefined && methodName in this.methods) {
-      let methodCall = this.methods[methodName]
+    if (method != undefined && method in this.methods) {
+      let methodCall = this.methods[method]
 
       try {
         if (typeof methodCall === 'function') {
@@ -46,13 +46,13 @@ export default class RemoteMethodApi {
 
   onMethodError(e: any, remoteMethodCall: RemoteMethodCall): any {
     return {
-      error: `There was an error while executing remote method '${remoteMethodCall.methodName}': ${e.message}`
+      error: `There was an error while executing remote method '${remoteMethodCall.method}': ${e.message}`
     }
   }
 
   onRemoteMethodNotSupported(remoteMethodCall: RemoteMethodCall): any {
     return {
-      error: `Remote method '${remoteMethodCall.methodName}' not supported.`
+      error: `Remote method '${remoteMethodCall.method}' not supported.`
     }
   }
 }

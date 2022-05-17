@@ -14,7 +14,7 @@ describe('Api', function() {
       }
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
@@ -36,7 +36,7 @@ describe('Api', function() {
       api.methods['a'] = methodCall
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
@@ -51,7 +51,7 @@ describe('Api', function() {
       let api = new RemoteMethodApi
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
@@ -70,7 +70,7 @@ describe('Api', function() {
       }
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
