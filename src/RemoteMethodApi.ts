@@ -1,6 +1,6 @@
 import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
 import { Log } from 'knight-log'
-import MethodCall from './MethodCall'
+import { MethodCall } from './MethodCall'
 
 let log = new Log('coderitter-api-remote-method-api/RemoteMethodApi.ts')
 
@@ -8,7 +8,7 @@ let log = new Log('coderitter-api-remote-method-api/RemoteMethodApi.ts')
  * A remote method call API. It is a simple mapping from a method name to
  * an endpoint which calls the method.
  */
-export default class RemoteMethodApi {
+export class RemoteMethodApi {
 
   methods: {[methodName: string]: MethodCall|((remoteMethodCall: RemoteMethodCall) => Promise<Result>)} = {}
 
@@ -28,10 +28,10 @@ export default class RemoteMethodApi {
     let l = log.mt('callMethod')
     l.lib('remoteMethodCall =', remoteMethodCall)
 
-    let methodName = remoteMethodCall.methodName
+    let method = remoteMethodCall.method
 
-    if (methodName != undefined && methodName in this.methods) {
-      let methodCall = this.methods[methodName]
+    if (method != undefined && method in this.methods) {
+      let methodCall = this.methods[method]
 
       try {
         if (typeof methodCall === 'function') {
@@ -53,7 +53,7 @@ export default class RemoteMethodApi {
       }
     }
     else {
-      l.warn(`Remote method '${methodName}' not found.`, this.methodNames)
+      l.warn(`Remote method '${method}' not found.`, this.methodNames)
       return this.onRemoteMethodNotSupported(remoteMethodCall)
     }
   }
@@ -63,6 +63,6 @@ export default class RemoteMethodApi {
   }
 
   onRemoteMethodNotSupported(remoteMethodCall: RemoteMethodCall): Result {
-    return Result.remoteError(`Remote method '${remoteMethodCall.methodName}' not found.`)
+    return Result.remoteError(`Remote method '${remoteMethodCall.method}' not found.`)
   }
 }

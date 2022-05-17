@@ -1,3 +1,3 @@
-export { default as MethodCall } from './MethodCall'
-export { default as RemoteMethodApi } from './RemoteMethodApi'
+export * from './MethodCall'
+export * from './RemoteMethodApi'
 

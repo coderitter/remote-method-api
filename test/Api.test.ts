@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { RemoteMethodCall, Result } from 'coderitter-api-remote-method-call'
 import 'mocha'
-import LocalMethodCall from '../src/LocalMethodCall'
-import RemoteMethodApi from '../src/RemoteMethodApi'
+import { MethodCall } from '../src/MethodCall'
+import { RemoteMethodApi } from '../src/RemoteMethodApi'
 
 describe('Api', function() {
   describe('callMethod', function() {
@@ -14,7 +14,7 @@ describe('Api', function() {
       }
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
@@ -25,18 +25,18 @@ describe('Api', function() {
       expect(result).to.equal('p1')
     })
 
-    it('should call the method given as object with interface LocalMethodCall', async function() {
+    it('should call the method given as object with interface MethodCall', async function() {
       let api = new RemoteMethodApi
-      let localMethodCall: LocalMethodCall = {
+      let methodCall: MethodCall = {
         callMethod: async (remoteMethodCall: RemoteMethodCall): Promise<any> => {
           return remoteMethodCall.parameter.p1
         }
       }
 
-      api.methods['a'] = localMethodCall
+      api.methods['a'] = methodCall
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
@@ -51,7 +51,7 @@ describe('Api', function() {
       let api = new RemoteMethodApi
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  
@@ -71,7 +71,7 @@ describe('Api', function() {
       }
 
       let remoteMethodCall: RemoteMethodCall = {
-        methodName: 'a',
+        method: 'a',
         parameter: {
           p1: 'p1'
         }  

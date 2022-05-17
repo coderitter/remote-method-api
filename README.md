@@ -18,7 +18,7 @@ This package works in conjunction with [coderitter-api-remote-method-call](https
 
 ```typescript
 interface RemoteMethodCall {
-  methodName: string
+  method: string
   parameter?: any
 }
 
@@ -96,7 +96,7 @@ Now you are ready to make remote method calls.
 import { RemoteMethodCall } from 'coderitter-api-remote-method-call'
 
 let remoteMethodCall: RemoteMethodCall = {
-  methodName: 'User.create',
+  method: 'User.create',
   // the parameter can be of any type
   parameter: { name: 'Ruben' }
 }
@@ -126,10 +126,10 @@ Result.remoteError(`There was an error with your request. We just were informed 
 If the remotely called method is not found, an instance of class `Result` with a set remote error is returned.
 
 ```typescript
-Result.remoteError(`Remote method '${methodName}' not supported.`)
+Result.remoteError(`Remote method '${method}' not supported.`)
 ```
 
-### Create a sophisticated remote method call handler with LocalMethodCall interface
+### Create a sophisticated remote method call handler with MethodCall interface
 
 Instead of assigning a remote method call directly as a function you can also assign any object satisfying the interface `MethodCall`.
 
