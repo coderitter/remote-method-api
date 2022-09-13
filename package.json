@@ -8,7 +8,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "coderitter-api-remote-method-call": "^5.0.0",
+    "coderitter-api-remote-method-call": "^6.0.0",
     "knight-log": "^1.0.6"
   },
   "devDependencies": {
