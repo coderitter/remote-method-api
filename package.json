@@ -1,6 +1,6 @@
 {
   "name": "coderitter-api-remote-method-api",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "An adoption of the remote method api for the Coderitter API architecture",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
