@@ -1,6 +1,6 @@
 {
   "name": "remote-method-api",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "A simple mapping from a remote method name to execution of code",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
