@@ -1,21 +1,21 @@
-import 'mocha'
 import { expect } from 'chai'
-import RemoteMethodApi from '../src/RemoteMethodApi'
-import MethodCall from '../src/MethodCall'
+import 'mocha'
 import { RemoteMethodCall } from 'remote-method-call'
+import { MethodCall } from '../src/MethodCall'
+import { RemoteMethodApi } from '../src/RemoteMethodApi'
 
 describe('Api', function() {
   describe('callMethod', function() {
     it('should call the method given directly by a function', async function() {
       let api = new RemoteMethodApi
 
-      api.methods['a'] = async (remoteMethodCall: RemoteMethodCall): Promise<any> => {
-        return remoteMethodCall.parameter.p1
+      api.methods['a'] = async (rmc: RemoteMethodCall): Promise<any> => {
+        return rmc.parameters.p1
       }
 
       let remoteMethodCall: RemoteMethodCall = {
         method: 'a',
-        parameter: {
+        parameters: {
           p1: 'p1'
         }  
       }
@@ -29,7 +29,7 @@ describe('Api', function() {
       let api = new RemoteMethodApi
       let methodCall: MethodCall = {
         callMethod: async (remoteMethodCall: RemoteMethodCall): Promise<any> => {
-          return remoteMethodCall.parameter.p1
+          return remoteMethodCall.parameters.p1
         }
       }
 
@@ -37,7 +37,7 @@ describe('Api', function() {
 
       let remoteMethodCall: RemoteMethodCall = {
         method: 'a',
-        parameter: {
+        parameters: {
           p1: 'p1'
         }  
       }
@@ -52,7 +52,7 @@ describe('Api', function() {
 
       let remoteMethodCall: RemoteMethodCall = {
         method: 'a',
-        parameter: {
+        parameters: {
           p1: 'p1'
         }  
       }
@@ -71,7 +71,7 @@ describe('Api', function() {
 
       let remoteMethodCall: RemoteMethodCall = {
         method: 'a',
-        parameter: {
+        parameters: {
           p1: 'p1'
         }  
       }

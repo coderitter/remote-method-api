@@ -1,58 +1,58 @@
 import { RemoteMethodCall } from 'remote-method-call'
-import MethodCall from './MethodCall'
+import { MethodCall } from './MethodCall'
 
 /**
  * A remote method call API. It is a simple mapping from a method name to
  * an endpoint which calls the method.
  */
-export default class RemoteMethodApi {
+export class RemoteMethodApi<RemoteMethodCallType extends RemoteMethodCall = any, ResultType = any> {
 
-  methods: {[methodName: string]: MethodCall|((parameter: any) => Promise<any>)} = {}
+    methods: { [methodName: string]: MethodCall<RemoteMethodCallType> | ((parameters: any) => Promise<ResultType>) } = {}
 
-  /**
-   * Get all the message id that can be handled 
-   */
-  get methodNames(): string[] {
-    return Object.keys(this.methods)
-  }
-  
-  /**
-   * Executes the method which was called remotely.
-   * 
-   * @param remoteMethodCall May be on object of type RemoteMethodCall or a JSON string containing an object matching the type RemoteMethodCall
-   */
-  async callMethod(remoteMethodCall: RemoteMethodCall): Promise<any> {
-    let method = remoteMethodCall.method
+    /**
+     * Get all the message id that can be handled
+     */
+    get methodNames(): string[] {
+        return Object.keys(this.methods)
+    }
 
-    if (method != undefined && method in this.methods) {
-      let methodCall = this.methods[method]
+    /**
+     * Executes the method which was called remotely.
+     *
+     * @param rmc May be on object of type RemoteMethodCall or a JSON string containing an object matching the type RemoteMethodCall
+     */
+    async callMethod(rmc: RemoteMethodCallType): Promise<ResultType> {
+        const method = rmc.method
 
-      try {
-        if (typeof methodCall === 'function') {
-          return await methodCall(remoteMethodCall)
+        if (method != undefined && method in this.methods) {
+            const methodCall = this.methods[method]
+
+            try {
+                if (typeof methodCall === 'function') {
+                    return await methodCall(rmc)
+                }
+                else {
+                    return await methodCall.callMethod(rmc)
+                }
+            }
+            catch (e) {
+                return this.onMethodError(e, rmc)
+            }
         }
         else {
-          return await methodCall.callMethod(remoteMethodCall)
+            return this.onRemoteMethodNotSupported(rmc)
         }
-      }
-      catch (e) {
-        return this.onMethodError(e, remoteMethodCall)
-      }
     }
-    else {
-      return this.onRemoteMethodNotSupported(remoteMethodCall)
-    }
-  }
 
-  onMethodError(e: any, remoteMethodCall: RemoteMethodCall): any {
-    return {
-      error: `There was an error while executing remote method '${remoteMethodCall.method}': ${e.message}`
+    onMethodError(e: any, rmc: RemoteMethodCallType): any {
+        return {
+            error: `There was an error while executing remote method '${rmc.method}': ${e.message}`
+        }
     }
-  }
 
-  onRemoteMethodNotSupported(remoteMethodCall: RemoteMethodCall): any {
-    return {
-      error: `Remote method '${remoteMethodCall.method}' not supported.`
+    onRemoteMethodNotSupported(rmc: RemoteMethodCallType): any {
+        return {
+            error: `Remote method '${rmc.method}' not supported.`
+        }
     }
-  }
 }

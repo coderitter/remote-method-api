@@ -32,6 +32,6 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "remote-method-call": "^2.0.0"
+    "remote-method-call": "^3.0.0"
   }
 }
